@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 # Flask app setup
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'fhbjbdfughvdfug@547635643'
+app.config['SECRET_KEY'] = 'lovnish@123'
 socketio = SocketIO(app, cors_allowed_origins="*")
 
 # MQTT Configuration

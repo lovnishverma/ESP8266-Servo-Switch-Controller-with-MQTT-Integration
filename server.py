@@ -250,3 +250,6 @@ def handle_command(data):
     if command:
         success, message = send_command(command)
         emit('command_result', {'success': success, 'message': message})
+        
+if __name__ == '__main__':
+    socketio.run(app, host='0.0.0.0', port=5000)

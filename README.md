@@ -4,6 +4,9 @@
 ### Executive Summary
 
 This project implements a comprehensive IoT-based servo motor switch controller using ESP8266 microcontroller with MQTT communication protocol. The system enables remote control of physical switches through both web interface and MQTT messaging, providing real-time monitoring and control capabilities for home automation applications.
+### ESP 8266 CODE
+https://github.com/lovnishverma/IOT/blob/esp8266/servo_switch_MQTT.ino
+
 
 ### 1. Project Overview
 

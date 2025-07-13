@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MQTT ESP8266 Switch Control (WebSocket)</title>
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px;
+        }
+        h1 { margin-bottom: 20px; }
+        .status {
+            background: white;
+            color: black;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+        .buttons {
+            display: flex;
+            gap: 20px;
+        }
+        .btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+        }
+        .btn-on { background-color: #28a745; }
+        .btn-off { background-color: #dc3545; }
+        .btn-toggle { background-color: #007bff; }
+        .btn-status { background-color: #6c757d; }
+    </style>
+</head>
+<body>
+
+    <h1>MQTT WebSocket Switch Controller</h1>
+    <div id="status" class="status">Connecting...</div>
+
+    <div class="buttons">
+        <button class="btn btn-on" onclick="sendCommand('on')">Turn ON</button>
+        <button class="btn btn-off" onclick="sendCommand('off')">Turn OFF</button>
+        <button class="btn btn-toggle" onclick="sendCommand('toggle')">Toggle</button>
+        <button class="btn btn-status" onclick="sendCommand('status')">Status</button>
+    </div>
+
+    <script>
+        const broker = 'wss://2332bf283a3042789deec54af864c4d4.s1.eu.hivemq.cloud:8884/mqtt';
+        const options = {
+            username: 'admin',
+            password: 'Admin@123',
+            connectTimeout: 4000,
+            clean: true,
+            reconnectPeriod: 4000
+        };
+
+        const topicCommand = 'home/switch/command';
+        const topicState = 'home/switch/state';
+        const topicAvailability = 'home/switch/availability';
+        const topicStatus = 'home/switch/status';
+
+        const statusDiv = document.getElementById('status');
+        const client = mqtt.connect(broker, options);
+
+        client.on('connect', () => {
+            console.log('✅ Connected to MQTT WebSocket');
+            statusDiv.textContent = 'Connected to MQTT WebSocket';
+            statusDiv.style.backgroundColor = '#d4edda';
+            statusDiv.style.color = '#155724';
+
+            client.subscribe([topicState, topicAvailability, topicStatus], { qos: 1 });
+        });
+
+        client.on('message', (topic, payload) => {
+            console.log(`📩 ${topic}: ${payload.toString()}`);
+            if (topic === topicState) {
+                statusDiv.textContent = `Switch State: ${payload.toString()}`;
+            }
+            if (topic === topicAvailability) {
+                statusDiv.textContent = `Device: ${payload.toString()}`;
+            }
+        });
+
+        client.on('error', (err) => {
+            console.error('Connection error:', err);
+            statusDiv.textContent = 'Connection Failed';
+            statusDiv.style.backgroundColor = '#f8d7da';
+            statusDiv.style.color = '#721c24';
+        });
+
+        client.on('reconnect', () => {
+            console.log('Reconnecting...');
+            statusDiv.textContent = 'Reconnecting...';
+        });
+
+        function sendCommand(command) {
+            if (!client.connected) {
+                alert('MQTT not connected!');
+                return;
+            }
+            client.publish(topicCommand, command, { qos: 1 }, (err) => {
+                if (err) {
+                    console.error('Publish error:', err);
+                    alert('Failed to send command');
+                } else {
+                    console.log(`Command sent: ${command}`);
+                    statusDiv.textContent = `Sent Command: ${command.toUpperCase()}`;
+                }
+            });
+        }
+    </script>
+</body>
+</html>

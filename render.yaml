@@ -3,4 +3,5 @@ services:
     name: ESP8266-Servo-Switch-Controller-with-MQTT-Integration
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app --worker-class eventlet -w 1 -b 0.0.0.0:10000
+    startCommand: gunicorn app:app -w 1 -b 0.0.0.0:10000
+

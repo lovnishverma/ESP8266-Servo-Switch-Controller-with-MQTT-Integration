@@ -16,8 +16,7 @@ logger = logging.getLogger(__name__)
 # Flask app setup
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'lovnish@123'
-# socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
-socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 # MQTT Configuration
 MQTT_BROKER = "2332bf283a3042789deec54af864c4d4.s1.eu.hivemq.cloud"

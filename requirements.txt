@@ -1,7 +1,0 @@
-Flask==0.12.4
-Flask-SocketIO==2.9.6
-python-socketio==4.5.1
-paho-mqtt
-eventlet==0.21.0
-python-engineio==3.13.2
-gunicorn

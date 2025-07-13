@@ -64,7 +64,7 @@ Password: Admin@123
 
 ## 🌐 **Demo Screenshot**
 
-![Demo Screenshot](https://via.placeholder.com/800x400?text=ESP8266+MQTT+WebSocket+Dashboard)
+![Demo Screenshot](https://github.com/user-attachments/assets/0ff42dc5-5e87-41e4-97f8-41da7de3253a)
 
 ---
 

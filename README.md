@@ -7,7 +7,7 @@ This is a simple and lightweight **HTML + JavaScript MQTT Controller** for contr
 No Python, No Flask — pure frontend.
 
 ### ESP 8266 CODE
-https://github.com/lovnishverma/IOT/blob/mqtt_examples/servo_switch_MQTT.ino
+https://github.com/lovnishverma/IOT/blob/esp8266/mqtt_examples/servo_switch_MQTT.ino
 
 ---
 
